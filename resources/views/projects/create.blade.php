@@ -13,21 +13,13 @@
 
 		{{ csrf_field() }}
 		
-		<input class="{{ $errors->has('title') ? 'is-danger' : '' }}" type="text" name="title" placeholder="Project Title">
+		<input class="{{ $errors->has('title') ? 'is-danger' : '' }}" type="text" name="title" placeholder="Project Title" required value="{{ old('title') }}">
 
-		<textarea name="description" id="" cols="30" rows="10"></textarea>
+		<textarea name="description" id="" cols="30" rows="10" required></textarea>
 
 		<button type="submit">Add</button>
 
-		@if ($errors->any())
-		<div>
-			<ul>
-				@foreach ($errors->all() as $error)
-					<li>{{ $error }}</li>
-				@endforeach
-			</ul>
-		</div>
-		@endif
+		@include('errors')
 	</form>
 
 </body>

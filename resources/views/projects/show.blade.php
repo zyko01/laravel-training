@@ -18,9 +18,9 @@
 
 			@csrf
 
-			<label for="completed">
+			<label class="{{ $task->completed ? 'is-complete' : '' }}" for="completed">
 				{{-- {{ $task->completed ? checked : '' }} --}}
-				<input type="checkbox" name="completed" onChange="this.form.submit()" >
+				<input type="checkbox" name="completed" onChange="this.form.submit()" {{ $task->completed ? 'checked' : '' }}>
 
 				{{ $task->description }}
 
@@ -29,8 +29,22 @@
 		</form>
 		
 		{{-- <li></li> --}}
-
 	@endforeach
+
+		<div>
+			<form method="POST" action="/projects/{{ $project->id }}/tasks">
+
+				@csrf
+
+				<label for="description">New Task</label>
+
+				<input type="text" name="description" placeholder="new task">
+
+				<button type="submit">Add Task</button>
+			</form>
+
+			@include('errors')
+		</div>
 	</div>
 
 @endif
