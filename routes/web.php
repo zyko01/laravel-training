@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 
 // use Illuminate\Filesystem\Filesystem;
 
+use App\Services\Twitter;
+
+use App\Repositories\UserRepository;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,14 +24,14 @@ use Illuminate\Support\Facades\Route;
 // 	return new \App\Example;
 // });
 
-app()->singleton('App\Services\Twitter', function () {
+/*app()->singleton('App\Services\Twitter', function () {
 
 	return new \App\Services\Twitter('asdasfsdgfsdgf');
-});
+});*/
 
-Route::get('/', function () {
+Route::get('/', function (Twitter $twitter) {
 
-	dd(app('App\Example'));
+	dd($twitter);
 
 	return view('welcome');
 });
