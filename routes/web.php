@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+// use Illuminate\Filesystem\Filesystem;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,7 +15,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'PagesController@home');
+
+// app()->singleton('example', function () {
+// 	return new \App\Example;
+// });
+
+app()->singleton('App\Services\Twitter', function () {
+
+	return new \App\Services\Twitter('asdasfsdgfsdgf');
+});
+
+Route::get('/', function () {
+
+	dd(app('App\Example'));
+
+	return view('welcome');
+});
+
+// Route::get('/', 'PagesController@home');
 
 Route::get('/about', 'PagesController@about');
 
