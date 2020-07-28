@@ -12,9 +12,13 @@
 	<div>
 	@foreach($project->tasks as $task)
 
-		<form method="POST" action="/task/{{ $task->id }}">
+		<form method="POST" action="/completed-tasks/{{ $task->id }}">
 			
-			@method('PATCH')
+			{{-- @method('PATCH') --}}
+
+			@if ($task->completed)
+				@method('DELETE')
+			@endif
 
 			@csrf
 
