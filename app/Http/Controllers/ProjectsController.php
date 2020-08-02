@@ -12,10 +12,18 @@ use Illuminate\Http\Request;
 
 class ProjectsController extends Controller
 {
+
+    public function __construct() 
+
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
 
     {
-    	$projects = Project::all();
+    	// $projects = Project::all();
+        $projects = Project::where('owner_id', auth()->id())->get();
 
 
     	return view('projects.index', compact('projects'));
@@ -50,12 +58,16 @@ class ProjectsController extends Controller
     	return redirect('/projects');
     }
 
-     public function show($id, Twitter $twitter)
+     public function show($id)
     {
         // $twitter = app('twitter');
 
-        dd($twitter);
+        // dd($twitter);
+        // auth()->user()->owns($project);
+        // abort_if($project->owne_id !== auth()->id(), 403); 
         // $project = Project::findOrFail($id);
+
+        $this->authorize('update', $project);
         
         return view('projects.show', compact('project'));
     }

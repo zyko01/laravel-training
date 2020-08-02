@@ -36,7 +36,7 @@
 	@endforeach
 
 		<div>
-			<form method="POST" action="/projects/{{ $project->id }}/tasks">
+			<form method="POST" action="{{ route('web.projects.store', ['project' => $project->id]) }}">
 
 				@csrf
 

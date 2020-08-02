@@ -29,7 +29,7 @@ use App\Repositories\UserRepository;
 	return new \App\Services\Twitter('asdasfsdgfsdgf');
 });*/
 
-Route::get('/', function (Twitter $twitter) {
+Route::get('', function (Twitter $twitter) {
 
 	dd($twitter);
 
@@ -44,7 +44,9 @@ Route::get('/contact', 'PagesController@contact');
 
 Route::resource('projects', 'ProjectsController');
 
-Route::post('/projects/{project}/tasks', 'ProjectTasksController@store');
+Route::namespace('ProjectTasks')->prefix('projects')->name('web.projects.')->group(function() {
+	Route::post('{project}/tasks/store', 'ProjectTaskController@store')->name('store');
+});
 
 // Route::patch('/task/{task}', 'ProjectTasksController@update');
 
@@ -65,3 +67,7 @@ Route::delete('/completed-tasks/{task}', 'CompletedTaskController@destroy');
 // Route::patch('/projects/{project}', 'ProjectsController@update');
 
 // Route::delete('/projects/{project}', 'ProjectsController@destroy');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

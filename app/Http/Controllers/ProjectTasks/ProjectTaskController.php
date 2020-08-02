@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ProjectTasks;
 
 use Illuminate\Http\Request;
 
@@ -8,7 +8,9 @@ use App\Task;
 
 use App\Project;
 
-class ProjectTasksController extends Controller
+use App\Http\Controllers\Controller;
+
+class ProjectTaskController extends Controller
 {
 
 
