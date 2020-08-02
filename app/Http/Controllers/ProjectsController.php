@@ -8,6 +8,8 @@ use App\Services\Twitter;
 
 use Illuminate\Filesystem\Filesystem;
 
+use Illuminate\Support\Facades\Mail;
+
 use Illuminate\Http\Request;
 
 class ProjectsController extends Controller
@@ -24,6 +26,10 @@ class ProjectsController extends Controller
     {
     	// $projects = Project::all();
         $projects = Project::where('owner_id', auth()->id())->get();
+
+        cache()->rememberForever*('stats', function() {
+            return('lesson' => 1300, 'hours' => 50000, 'series' => 100);
+        });
 
 
     	return view('projects.index', compact('projects'));
@@ -54,6 +60,10 @@ class ProjectsController extends Controller
     	$project->description = request('description');
 
     	$project->save();
+
+        // s
+
+        event(new ProjectCreated($project));
 
     	return redirect('/projects');
     }
@@ -86,13 +96,15 @@ class ProjectsController extends Controller
 
      public function update($id)
     {
-        $project = Project::findOrFail($id);
+     //    $project = Project::findOrFail($id);
 
-        $project->title = request('title');
+     //    $project->title = request('title');
 
-    	$project->description = request('description');
+    	// $project->description = request('description');
 
-    	$project->save();
+    	// $project->save();
+
+        $project->update($this->validateProject());
 
     	return redirect('/projects');
     }
