@@ -27,9 +27,9 @@ class ProjectsController extends Controller
     	// $projects = Project::all();
         $projects = Project::where('owner_id', auth()->id())->get();
 
-        cache()->rememberForever*('stats', function() {
-            return('lesson' => 1300, 'hours' => 50000, 'series' => 100);
-        });
+        // cache()->rememberForever*('stats', function() {
+        //     return('lesson' => 1300, 'hours' => 50000, 'series' => 100);
+        // });
 
 
     	return view('projects.index', compact('projects'));

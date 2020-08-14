@@ -31,7 +31,6 @@ use App\Repositories\UserRepository;
 
 Route::get('', function (Twitter $twitter) {
 
-	dd($twitter);
 
 	return view('welcome');
 });
@@ -71,3 +70,11 @@ Route::delete('/completed-tasks/{task}', 'CompletedTaskController@destroy');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+
+Route::get('skills', function(){
+
+	return ['laravel', 'Vue', 'PHP'];
+});
